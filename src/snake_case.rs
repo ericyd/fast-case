@@ -1,9 +1,16 @@
 use super::util::to_lowercase_string_vec;
+use once_cell::sync::Lazy;
+use regex::Regex;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 pub fn to_snake_case(s: &str) -> String {
-    to_lowercase_string_vec(s).join("_")
+    // wow this is actually way worse!
+    static RE_WHITESPACE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(\s|-|_)").unwrap());
+    static RE_LOWER_UPPER: Lazy<Regex> = Lazy::new(|| Regex::new(r"([a-z])([A-Z])").unwrap());
+    RE_LOWER_UPPER
+        .replace_all(&RE_WHITESPACE.replace_all(s, "_"), "$1_$2")
+        .to_lowercase()
 }
 
 #[cfg(test)]

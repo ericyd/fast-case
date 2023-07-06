@@ -50,6 +50,5 @@ ESM modules cannot yet be used with WASM: [the proposal is in stage 2 at time of
 ## TODO
 
 - [ ] [Optimize string processing](https://lise-henry.github.io/articles/optimising_strings.html)
-  - try [`js_sys::JsString`](https://rustwasm.github.io/wasm-bindgen/reference/types/str.html) to use references instead of copying
 - [ ] Add SCREAMING_SNAKE_CASE option
 - [ ] Add tests for non-ascii unicode handling
