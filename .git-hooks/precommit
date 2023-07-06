@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Pre-commit hook
+#
+# Find files that are staged, and format them.
+# Re-stage all previously-staged files, to ensure any changes are included in the commit
+
+# we only want to operate on files we were originally intending to commit - ignore unstaged files
+staged=$(git diff --name-only --cached --diff-filter=d)
+
+# only run prettier on files that it can handle
+if [[ $staged =~ \.js ]] || [[ $staged =~ \.ts ]] || [[ $staged =~ \.md ]] || [[ $staged =~ \.yml ]]; then
+  echo $staged | xargs npx prettier --write --files
+fi
+
+# only run terraform fmt if terraform files are affected
+if [[ $staged =~ \.rs ]]; then
+  cargo fmt
+fi
+
+echo $staged | xargs git add
