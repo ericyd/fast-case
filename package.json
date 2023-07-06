@@ -1,0 +1,28 @@
+{
+  "name": "fast-case",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Fast case change library",
+  "main": "index.js",
+  "scripts": {
+    "build:wasm-pack": "wasm-pack build --target nodejs --out-name index --out-dir ./pkg",
+    "build:typescript": "tsc -b",
+    "build": "npm run build:wasm-pack && npm run build:typescript",
+    "package": "npm pack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericyd/fast-case.git"
+  },
+  "keywords": [],
+  "author": "Eric Dauenhauer <eric@ericyd.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericyd/fast-case/issues"
+  },
+  "homepage": "https://github.com/ericyd/fast-case#readme",
+  "devDependencies": {
+    "typescript": "^5.1.6",
+    "wasm-pack": "^0.12.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "module": "ES2022",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+  }
+}
