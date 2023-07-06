@@ -1,9 +1,42 @@
-use super::util::to_lowercase_string_vec;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 pub fn to_snake_case(s: &str) -> String {
-    to_lowercase_string_vec(s).join("_")
+    let bytes = s.as_bytes();
+    // this is more space than we need but will guarantee we avoid reallocations
+    let mut result: Vec<u8> = Vec::with_capacity(bytes.len() * 2);
+    let mut i = 0;
+    while i < bytes.len() {
+        // 32 == space
+        // 45 == hyphen
+        // 95 == underscore
+        if bytes[i] == 32 || bytes[i] == 45 || bytes[i] == 95 {
+            result.push(95); // underscore
+            i += 1;
+            continue;
+        }
+
+        // uppercase ascii; lowercase in place
+        if bytes[i] >= 65 && bytes[i] <= 90 {
+            // previous is lowercase ascii, i.e. word boundary
+            if i > 0 && bytes[i - 1] >= 97 && bytes[i - 1] <= 122 {
+                result.push(95); // underscore
+                result.push(bytes[i] + 32);
+            } else {
+                result.push(bytes[i] + 32);
+            }
+            i += 1;
+            continue;
+        }
+
+        result.push(bytes[i]);
+        i += 1;
+    }
+
+    match String::from_utf8(result) {
+        Ok(v) => v,
+        Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
+    }
 }
 
 #[cfg(test)]
