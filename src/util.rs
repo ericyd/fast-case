@@ -43,3 +43,22 @@ pub fn split_into_words(s: &str) -> Vec<&str> {
     words.push(&s[slice_start..slice_end]);
     words
 }
+
+pub fn to_lowercase_string_vec(s: &str) -> Vec<String> {
+    let words: Vec<&str> = split_into_words(s);
+    words
+        .into_iter()
+        .map(|s| s.to_ascii_lowercase())
+        .collect::<Vec<String>>()
+}
+
+pub fn to_capitalized_string_vec(s: &str) -> Vec<String> {
+    let words: Vec<&str> = split_into_words(s);
+    words
+        .into_iter()
+        .map(|s| {
+            let temp = s.to_ascii_lowercase();
+            temp[0..1].to_ascii_uppercase() + &temp[1..]
+        })
+        .collect::<Vec<String>>()
+}

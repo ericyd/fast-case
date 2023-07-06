@@ -1,16 +1,16 @@
-use super::util::to_lowercase_string_vec;
+use super::util::to_capitalized_string_vec;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
-pub fn to_snake_case(s: &str) -> String {
-    to_lowercase_string_vec(s).join("_")
+pub fn to_title_case(s: &str) -> String {
+    to_capitalized_string_vec(s).join(" ")
 }
 
 #[cfg(test)]
-mod snake_case_tests {
+mod title_case_tests {
     use super::super::convert_case;
-    const CASE: &str = "snake_case";
-    const EXPECTED: &str = "test_lots";
+    const CASE: &str = "Title Case";
+    const EXPECTED: &str = "Test Lots";
 
     #[test]
     fn identity() {
@@ -19,7 +19,7 @@ mod snake_case_tests {
 
     #[test]
     fn single_lowercase_word() {
-        assert_eq!(convert_case(CASE, "test"), "test");
+        assert_eq!(convert_case(CASE, "test"), "Test");
     }
 
     #[test]
@@ -48,11 +48,6 @@ mod snake_case_tests {
     }
 
     #[test]
-    fn title_case() {
-        assert_eq!(convert_case(CASE, "Test Lots"), EXPECTED);
-    }
-
-    #[test]
     fn pascal_case() {
         assert_eq!(convert_case(CASE, "TestLots"), EXPECTED);
     }
@@ -60,6 +55,11 @@ mod snake_case_tests {
     #[test]
     fn sentence_case() {
         assert_eq!(convert_case(CASE, "Test lots"), EXPECTED);
+    }
+
+    #[test]
+    fn snake_case() {
+        assert_eq!(convert_case(CASE, "test_lots"), EXPECTED);
     }
 
     #[test]

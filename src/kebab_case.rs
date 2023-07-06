@@ -2,15 +2,15 @@ use super::util::to_lowercase_string_vec;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
-pub fn to_snake_case(s: &str) -> String {
-    to_lowercase_string_vec(s).join("_")
+pub fn to_kebab_case(s: &str) -> String {
+    to_lowercase_string_vec(s).join("-")
 }
 
 #[cfg(test)]
-mod snake_case_tests {
+mod kebab_case_tests {
     use super::super::convert_case;
-    const CASE: &str = "snake_case";
-    const EXPECTED: &str = "test_lots";
+    const CASE: &str = "kebab-case";
+    const EXPECTED: &str = "test-lots";
 
     #[test]
     fn identity() {
@@ -48,11 +48,6 @@ mod snake_case_tests {
     }
 
     #[test]
-    fn title_case() {
-        assert_eq!(convert_case(CASE, "Test Lots"), EXPECTED);
-    }
-
-    #[test]
     fn pascal_case() {
         assert_eq!(convert_case(CASE, "TestLots"), EXPECTED);
     }
@@ -63,7 +58,12 @@ mod snake_case_tests {
     }
 
     #[test]
-    fn kebab_case() {
-        assert_eq!(convert_case(CASE, "test-lots"), EXPECTED);
+    fn title_case() {
+        assert_eq!(convert_case(CASE, "Test Lots"), EXPECTED);
+    }
+
+    #[test]
+    fn snake_case() {
+        assert_eq!(convert_case(CASE, "test_lots"), EXPECTED);
     }
 }
