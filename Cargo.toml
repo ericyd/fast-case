@@ -1,5 +1,5 @@
 [package]
-name = "fast-case"
+name = "fast_case"
 version = "1.0.0"
 edition = "2021"
 repository = "https://github.com/ericyd/fast-case"
@@ -7,8 +7,17 @@ description = "Fast case-change library for Node.js"
 license = "See LICENSE"
 
 [lib]
-# required to compile to WebAssembly
-crate-type = ["cdylib"]
+# `cdylib` required to compile to WebAssembly, `lib` required for benchmarks
+crate-type = ["cdylib", "lib"]
+name = "fast_case"
+path = "src/lib.rs"
 
 [dependencies]
 wasm-bindgen = "0.2.87"
+
+[dev-dependencies]
+criterion = { version = "0.4", features = ["html_reports"] }
+
+[[bench]]
+name = "snake_case"
+harness = false
