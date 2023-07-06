@@ -1,14 +1,24 @@
 {
   "name": "fast-case",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "description": "Fast case change library",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "pkg/**/*.js",
+    "pkg/**/*.d.ts",
+    "pkg/**/*.wasm",
+    "pkg/**/*.wasm.d.ts"
+  ],
   "scripts": {
     "build:wasm-pack": "wasm-pack build --target nodejs --out-name index --out-dir ./pkg",
     "build:typescript": "tsc -b",
     "build": "npm run build:wasm-pack && npm run build:typescript",
-    "package": "npm pack"
+    "package": "npm pack",
+    "format": "cargo fmt && prettier --write **/*.[tj]s"
   },
   "repository": {
     "type": "git",
