@@ -18,7 +18,7 @@
     "build:typescript": "tsc -b",
     "build": "npm run build:wasm-pack && npm run build:typescript",
     "package": "npm pack",
-    "format": "cargo fmt && prettier --write **/*.[tj]s"
+    "format": "cargo fmt && prettier --write lib/**/*.[tj]s"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/ericyd/fast-case#readme",
   "devDependencies": {
+    "prettier": "^3.0.0",
     "typescript": "^5.1.6",
     "wasm-pack": "^0.12.1"
   }
