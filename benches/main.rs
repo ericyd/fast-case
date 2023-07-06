@@ -1,3 +1,5 @@
+// https://crates.io/crates/criterion
+// https://doc.rust-lang.org/cargo/commands/cargo-bench.html
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 extern crate fast_case;
