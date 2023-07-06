@@ -19,5 +19,5 @@ wasm-bindgen = "0.2.87"
 criterion = { version = "0.4", features = ["html_reports"] }
 
 [[bench]]
-name = "snake_case"
+name = "main"
 harness = false
