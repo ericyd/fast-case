@@ -9,62 +9,61 @@ pub fn to_sentence_case(s: &str) -> String {
 
 #[cfg(test)]
 mod sentence_case_tests {
-    use super::super::convert_case;
-    const CASE: &str = "Sentence case";
+    use super::to_sentence_case;
     const EXPECTED: &str = "Test lots";
 
     #[test]
     fn identity() {
-        assert_eq!(convert_case(CASE, EXPECTED), EXPECTED);
+        assert_eq!(to_sentence_case(EXPECTED), EXPECTED);
     }
 
     #[test]
     fn single_lowercase_word() {
-        assert_eq!(convert_case(CASE, "test"), "Test");
+        assert_eq!(to_sentence_case("test"), "Test");
     }
 
     #[test]
     fn two_lowercase_words() {
-        assert_eq!(convert_case(CASE, "test lots"), EXPECTED);
+        assert_eq!(to_sentence_case("test lots"), EXPECTED);
     }
 
     #[test]
     fn two_uppercase_words() {
-        assert_eq!(convert_case(CASE, "TEST LOTS"), EXPECTED);
+        assert_eq!(to_sentence_case("TEST LOTS"), EXPECTED);
     }
 
     #[test]
     fn two_mixed_case_words() {
-        assert_eq!(convert_case(CASE, "Test LOts"), EXPECTED);
+        assert_eq!(to_sentence_case("Test LOts"), EXPECTED);
     }
 
     #[test]
     fn screaming_snake_case() {
-        assert_eq!(convert_case(CASE, "TEST_LOTS"), EXPECTED);
+        assert_eq!(to_sentence_case("TEST_LOTS"), EXPECTED);
     }
 
     #[test]
     fn camel_case() {
-        assert_eq!(convert_case(CASE, "testLots"), EXPECTED);
+        assert_eq!(to_sentence_case("testLots"), EXPECTED);
     }
 
     #[test]
     fn title_case() {
-        assert_eq!(convert_case(CASE, "Test Lots"), EXPECTED);
+        assert_eq!(to_sentence_case("Test Lots"), EXPECTED);
     }
 
     #[test]
     fn pascal_case() {
-        assert_eq!(convert_case(CASE, "TestLots"), EXPECTED);
+        assert_eq!(to_sentence_case("TestLots"), EXPECTED);
     }
 
     #[test]
     fn snake_case() {
-        assert_eq!(convert_case(CASE, "test_lots"), EXPECTED);
+        assert_eq!(to_sentence_case("test_lots"), EXPECTED);
     }
 
     #[test]
     fn kebab_case() {
-        assert_eq!(convert_case(CASE, "test-lots"), EXPECTED);
+        assert_eq!(to_sentence_case("test-lots"), EXPECTED);
     }
 }

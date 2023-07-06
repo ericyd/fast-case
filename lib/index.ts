@@ -1,26 +1,15 @@
-import { convert_case } from "../pkg/index.js";
+import {
+  to_snake_case,
+  to_camel_case,
+  to_kebab_case,
+  to_pascal_case,
+  to_sentence_case,
+  to_title_case,
+} from "../pkg/index.js";
 
-type Case =
-  | "camelCase"
-  | "snake_case"
-  | "Sentence case"
-  | "Title Case"
-  | "PascalCase"
-  | "kebab-case";
-
-export function convertCase(newCase: Case, value: string): string {
-  return convert_case(newCase, value);
-}
-
-export const toSnakeCase = (value: string) => convertCase("snake_case", value);
-
-export const toCamelCase = (value: string) => convertCase("camelCase", value);
-
-export const toSentenceCase = (value: string) =>
-  convertCase("Sentence case", value);
-
-export const toTitleCase = (value: string) => convertCase("Title Case", value);
-
-export const toPascalCase = (value: string) => convertCase("PascalCase", value);
-
-export const toKebabCase = (value: string) => convertCase("kebab-case", value);
+export const toSnakeCase = (value: string) => to_snake_case(value);
+export const toCamelCase = (value: string) => to_camel_case(value);
+export const toKebabCase = (value: string) => to_kebab_case(value);
+export const toPascalCase = (value: string) => to_pascal_case(value);
+export const toSentenceCase = (value: string) => to_sentence_case(value);
+export const toTitleCase = (value: string) => to_title_case(value);
