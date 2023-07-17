@@ -25,8 +25,12 @@ npm run build
 
 ## Test
 
+Tests are written in both Rust and JS. The Rust tests ensure the core algorithm works, and the JS tests ensure the WASM bindings work. To run the JS tests, you **must** build the entire lib first.
+
 ```shell
 cargo test
+# npm run build (if needed)
+node --test
 ```
 
 ## Benchmark
