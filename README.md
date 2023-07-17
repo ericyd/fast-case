@@ -53,8 +53,6 @@ ESM modules cannot yet be used with WASM: [the proposal is in stage 2 at time of
 
 ## TODO
 
-- [ ] [Optimize string processing](https://lise-henry.github.io/articles/optimising_strings.html)
-  - try [`js_sys::JsString`](https://rustwasm.github.io/wasm-bindgen/reference/types/str.html) to use references instead of copying
-  - consider iterating over byte array, ([remove](https://doc.rust-lang.org/std/string/struct.String.html#method.remove) whitespace, [replace range](https://doc.rust-lang.org/std/string/struct.String.html#method.replace_range) for lower-upper boundaries, [is char boundary](https://doc.rust-lang.org/std/string/struct.String.html#method.is_char_boundary), and mutate the string with [make ascii lowercase](https://doc.rust-lang.org/std/string/struct.String.html#method.make_ascii_lowercase))
 - [ ] Add SCREAMING_SNAKE_CASE option
-- [ ] Add tests for non-ascii unicode handling
+- [ ] Add tests for non-ascii unicode handling (done in snake_case, need to carry through to others)
+- [ ] beat change-case in benchmark
