@@ -47,6 +47,80 @@ Rust benchmarks do not compare to other implementations, but they can track chan
 npm run benchmark:rs
 ```
 
+Note: although the intention of this library was originally for TS/JS, the core Rust algorithm is substantially faster than most other leading case-changing crates on crates.io. Below is a comparison of several popular libraries. The notable exception is [heck](https://crates.io/crates/heck) which was either functionally equivalent in performance, or better. I did not compare functionality; there are likely cases that vary between each library. The times listed are from [criterion's command-line output](https://bheisler.github.io/criterion.rs/book/user_guide/command_line_output.html) which states:
+
+> The left and right values show the lower and upper bounds of the confidence interval respectively, while the center value shows Criterion.rs' best estimate of the time taken for each iteration of the benchmarked routine.
+
+Tests performed on
+
+```
+Darwin 22.5.0 x64
+Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz × 12
+```
+
+snake_case
+
+```
+heck           time:   [832.29 ns 837.56 ns 843.26 ns]
+fast_case      time:   [787.43 ns 840.54 ns 911.55 ns]
+recase         time:   [9.2141 µs 9.3199 µs 9.4381 µs]
+convert_case   time:   [39.593 µs 40.731 µs 42.002 µs]
+change_case    time:   [59.965 µs 62.111 µs 64.238 µs]
+case_switcher  time:   [868.08 µs 880.13 µs 893.50 µs]
+```
+
+camelCase
+
+```
+heck           time:   [759.27 ns 775.13 ns 800.10 ns]
+fast_case      time:   [775.18 ns 787.95 ns 801.42 ns]
+recase         time:   [11.876 µs 11.979 µs 12.096 µs]
+convert_case   time:   [38.083 µs 38.641 µs 39.289 µs]
+change_case    time:   [55.058 µs 55.354 µs 55.718 µs]
+case_switcher  time:   [859.65 µs 877.71 µs 895.72 µs]
+```
+
+PascalCase
+
+```
+heck          time:   [756.82 ns 764.52 ns 774.15 ns]
+fast_case     time:   [788.86 ns 810.62 ns 835.11 ns]
+recase        time:   [12.278 µs 12.405 µs 12.545 µs]
+convert_case  time:   [36.931 µs 37.327 µs 37.795 µs]
+change_case   time:   [60.615 µs 63.079 µs 65.653 µs]
+case_switcher time:   [841.91 µs 854.95 µs 869.63 µs]
+```
+
+Title Case
+
+```
+heck           time:   [837.70 ns 842.13 ns 846.74 ns]
+fast_case      time:   [866.92 ns 891.07 ns 915.83 ns]
+change_case    time:   [10.809 µs 10.909 µs 11.019 µs]
+recase         time:   [12.342 µs 12.518 µs 12.718 µs]
+convert_case   time:   [38.815 µs 39.351 µs 39.935 µs]
+case_switcher  time:   [872.13 µs 893.60 µs 917.50 µs]
+```
+
+Sentence case
+
+```
+fast_case   time:   [815.95 ns 824.93 ns 833.40 ns]
+recase      time:   [9.7883 µs 9.9663 µs 10.132 µs]
+change_case time:   [53.678 µs 53.958 µs 54.250 µs]
+```
+
+kebab-case
+
+```
+fast_case      time:   [811.80 ns 822.13 ns 831.34 ns]
+recase heck    time:   [828.29 ns 836.80 ns 846.28 ns]
+recase         time:   [9.3987 µs 9.5677 µs 9.7547 µs]
+convert_case   time:   [35.783 µs 36.059 µs 36.373 µs]
+change_case    time:   [54.596 µs 55.238 µs 55.938 µs]
+case_switcher  time:   [828.96 µs 842.41 µs 856.96 µs]
+```
+
 ## Why CommonJS?
 
 ESM modules cannot yet be used with WASM: [the proposal is in stage 2 at time of writing](https://github.com/WebAssembly/esm-integration/tree/main/proposals/esm-integration)
