@@ -1,4 +1,14 @@
+use super::util::{convert_case, to_lowercase};
 use wasm_bindgen::prelude::wasm_bindgen;
+
+#[wasm_bindgen]
+pub fn to_snake_case(s: &str) -> String {
+    convert_case(s, Some('_'), to_lowercase, false, false)
+}
+
+/*
+Very fast, but doesn't handle accented latin characters properly, and has potential to pollute unicode strings.
+Also doesn't handle CAMELCase -> camel_case
 
 #[wasm_bindgen]
 pub fn to_snake_case(s: &str) -> String {
@@ -17,14 +27,12 @@ pub fn to_snake_case(s: &str) -> String {
         }
 
         // uppercase ascii; lowercase in place
-        if bytes[i] >= 65 && bytes[i] <= 90 {
+        if bytes[i] >= 65 && bytes[i] <= 90 && s.is_char_boundary(i) {
             // previous is lowercase ascii, i.e. word boundary
             if i > 0 && bytes[i - 1] >= 97 && bytes[i - 1] <= 122 {
                 result.push(95); // underscore
-                result.push(bytes[i] + 32);
-            } else {
-                result.push(bytes[i] + 32);
             }
+            result.push(bytes[i] + 32);
             i += 1;
             continue;
         }
@@ -38,6 +46,7 @@ pub fn to_snake_case(s: &str) -> String {
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     }
 }
+*/
 
 #[cfg(test)]
 mod snake_case_tests {
@@ -65,8 +74,13 @@ mod snake_case_tests {
     }
 
     #[test]
-    fn two_mixed_case_words() {
-        assert_eq!(to_snake_case("Test LOts"), EXPECTED);
+    fn mixed_case_words_a() {
+        assert_eq!(to_snake_case("testLOTS"), EXPECTED);
+    }
+
+    #[test]
+    fn mixed_case_words_b() {
+        assert_eq!(to_snake_case("TESTLots"), EXPECTED);
     }
 
     #[test]
@@ -98,4 +112,54 @@ mod snake_case_tests {
     fn kebab_case() {
         assert_eq!(to_snake_case("test-lots"), EXPECTED);
     }
+
+    #[test]
+    fn unicode_a() {
+        assert_eq!(to_snake_case("Per Martin-Löf"), "per_martin_löf");
+    }
+
+    #[test]
+    fn unicode_b() {
+        assert_eq!(to_snake_case("Löwe 老虎 Léopard"), "löwe_老虎_léopard");
+    }
+
+    // TODO: expected behavior?
+    // #[test]
+    // fn unicode_c() {
+    //     assert_eq!(to_snake_case("Löwe老虎Léopard"), "löwe老虎_léopard");
+    // }
+
+    #[test]
+    fn unicode_d() {
+        assert_eq!(to_snake_case("❤️🧡💛💚💙💜"), "❤️🧡💛💚💙💜");
+    }
+
+    #[test]
+    fn unicode_e() {
+        assert_eq!(to_snake_case("Test 🗻∈🌏 Lots"), "test_🗻∈🌏_lots");
+    }
+
+    #[test]
+    fn unicode_f() {
+        assert_eq!(to_snake_case("Test🗻∈🌏Lots"), "test🗻∈🌏lots");
+    }
+
+    // TODO: expected behavior?
+    // #[test]
+    // fn unicode_g() {
+    //     assert_eq!(to_snake_case("y̆ummy̆Yummy̆"), "y̆ummy̆_yummy̆");
+    // }
+
+    // upper ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ
+    // lower àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþ
+    #[test]
+    fn latin_test_a() {
+        assert_eq!(to_snake_case("ÀêÙý ÇË téõÑæã"), "àê_ùý_çë_téõ_ñæã");
+    }
+
+    // TODO: specs for
+    // assert!(!'a'.is_uppercase());
+    // assert!(!'δ'.is_uppercase());
+    // assert!('A'.is_uppercase());
+    // assert!('Δ'.is_uppercase());
 }
