@@ -44,6 +44,54 @@ pub fn split_into_words(s: &str) -> Vec<&str> {
     words
 }
 
+pub fn convert_case(
+    s: &str,
+    delimiter: Option<char>,
+    transformer: fn(char) -> char,
+    uppercase_first_char: bool,
+    uppercase_word_boundary: bool,
+) -> String {
+    let chars = s.chars().collect::<Vec<char>>();
+    let mut result: Vec<char> = Vec::with_capacity(s.len() * 2);
+    // capitalize flips based on word boundary
+    let mut capitalize = uppercase_first_char;
+    for i in 0..chars.len() {
+        if chars[i] == ' ' || chars[i] == '-' || chars[i] == '_' {
+            // capitalize after a word boundary if needed
+            capitalize = uppercase_word_boundary;
+            if let Some(char) = delimiter {
+                result.push(char);
+            }
+            continue;
+        }
+
+        if i > 0
+            && chars[i].is_uppercase()
+            && (chars[i - 1].is_lowercase()
+                || (i < chars.len() - 1
+                    && chars[i - 1].is_uppercase()
+                    && chars[i + 1].is_lowercase()))
+        {
+            if let Some(char) = delimiter {
+                result.push(char);
+            }
+            capitalize = uppercase_word_boundary;
+        }
+
+        if capitalize {
+            capitalize = false;
+            result.push(chars[i].to_uppercase().next().unwrap());
+        } else {
+            result.push(transformer(chars[i]));
+        }
+    }
+    result.iter().collect::<String>()
+}
+
+pub fn to_lowercase(c: char) -> char {
+    c.to_lowercase().next().unwrap()
+}
+
 pub fn to_lowercase_string_vec(s: &str) -> Vec<String> {
     let words: Vec<&str> = split_into_words(s);
     words
