@@ -19,59 +19,26 @@ mod title_case_tests {
     use super::to_title_case;
     const EXPECTED: &str = "Test Lots";
 
-    #[test]
-    fn identity() {
-        assert_eq!(to_title_case(EXPECTED), EXPECTED);
+    // credit: https://github.com/withoutboats/heck/blob/76a8274f948fbe3551413dc09026b733aca71995/src/shouty_kebab.rs#L51-L58
+    macro_rules! test {
+        ($test_name:ident : $str1:expr => $str2:expr) => {
+            #[test]
+            fn $test_name() {
+                assert_eq!(to_title_case($str1), $str2);
+            }
+        };
     }
 
-    #[test]
-    fn single_lowercase_word() {
-        assert_eq!(to_title_case("test"), "Test");
-    }
-
-    #[test]
-    fn two_lowercase_words() {
-        assert_eq!(to_title_case("test lots"), EXPECTED);
-    }
-
-    #[test]
-    fn two_uppercase_words() {
-        assert_eq!(to_title_case("TEST LOTS"), EXPECTED);
-    }
-
-    // TODO: what is the expected behavior with this spec?
-    // #[test]
-    // fn two_mixed_case_words() {
-    //     assert_eq!(to_pascal_case("Test LOts"), EXPECTED);
-    // }
-
-    #[test]
-    fn screaming_snake_case() {
-        assert_eq!(to_title_case("TEST_LOTS"), EXPECTED);
-    }
-
-    #[test]
-    fn camel_case() {
-        assert_eq!(to_title_case("testLots"), EXPECTED);
-    }
-
-    #[test]
-    fn pascal_case() {
-        assert_eq!(to_title_case("TestLots"), EXPECTED);
-    }
-
-    #[test]
-    fn sentence_case() {
-        assert_eq!(to_title_case("Test lots"), EXPECTED);
-    }
-
-    #[test]
-    fn snake_case() {
-        assert_eq!(to_title_case("test_lots"), EXPECTED);
-    }
-
-    #[test]
-    fn kebab_case() {
-        assert_eq!(to_title_case("test-lots"), EXPECTED);
-    }
+    test!(identity: EXPECTED => EXPECTED);
+    test!(single_lowercase_word: "test" => "Test");
+    test!(two_lowercase_words: "test lots" => EXPECTED);
+    test!(two_uppercase_words: "TEST LOTS" => EXPECTED);
+    // TODO: expected behavior?
+    // test!(two_mixed_case_words: "Test LOts" => EXPECTED);
+    test!(screaming_snake_case: "TEST_LOTS" => EXPECTED);
+    test!(camel_case: "testLots" => EXPECTED);
+    test!(pascal_case: "TestLots" => EXPECTED);
+    test!(sentence_case: "Test lots" => EXPECTED);
+    test!(snake_case: "test_lots" => EXPECTED);
+    test!(kebab_case: "test-lots" => EXPECTED);
 }

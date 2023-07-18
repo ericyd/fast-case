@@ -53,109 +53,40 @@ mod snake_case_tests {
     use super::to_snake_case;
     const EXPECTED: &str = "test_lots";
 
-    #[test]
-    fn identity() {
-        assert_eq!(to_snake_case(EXPECTED), EXPECTED);
+    // credit: https://github.com/withoutboats/heck/blob/76a8274f948fbe3551413dc09026b733aca71995/src/shouty_kebab.rs#L51-L58
+    macro_rules! test {
+        ($test_name:ident : $str1:expr => $str2:expr) => {
+            #[test]
+            fn $test_name() {
+                assert_eq!(to_snake_case($str1), $str2);
+            }
+        };
     }
 
-    #[test]
-    fn single_lowercase_word() {
-        assert_eq!(to_snake_case("test"), "test");
-    }
-
-    #[test]
-    fn two_lowercase_words() {
-        assert_eq!(to_snake_case("test lots"), EXPECTED);
-    }
-
-    #[test]
-    fn two_uppercase_words() {
-        assert_eq!(to_snake_case("TEST LOTS"), EXPECTED);
-    }
-
-    #[test]
-    fn mixed_case_words_a() {
-        assert_eq!(to_snake_case("testLOTS"), EXPECTED);
-    }
-
-    #[test]
-    fn mixed_case_words_b() {
-        assert_eq!(to_snake_case("TESTLots"), EXPECTED);
-    }
-
-    #[test]
-    fn screaming_snake_case() {
-        assert_eq!(to_snake_case("TEST_LOTS"), EXPECTED);
-    }
-
-    #[test]
-    fn camel_case() {
-        assert_eq!(to_snake_case("testLots"), EXPECTED);
-    }
-
-    #[test]
-    fn title_case() {
-        assert_eq!(to_snake_case("Test Lots"), EXPECTED);
-    }
-
-    #[test]
-    fn pascal_case() {
-        assert_eq!(to_snake_case("TestLots"), EXPECTED);
-    }
-
-    #[test]
-    fn sentence_case() {
-        assert_eq!(to_snake_case("Test lots"), EXPECTED);
-    }
-
-    #[test]
-    fn kebab_case() {
-        assert_eq!(to_snake_case("test-lots"), EXPECTED);
-    }
-
-    #[test]
-    fn unicode_a() {
-        assert_eq!(to_snake_case("Per Martin-Löf"), "per_martin_löf");
-    }
-
-    #[test]
-    fn unicode_b() {
-        assert_eq!(to_snake_case("Löwe 老虎 Léopard"), "löwe_老虎_léopard");
-    }
-
-    // TODO: expected behavior?
-    // #[test]
-    // fn unicode_c() {
-    //     assert_eq!(to_snake_case("Löwe老虎Léopard"), "löwe老虎_léopard");
-    // }
-
-    #[test]
-    fn unicode_d() {
-        assert_eq!(to_snake_case("❤️🧡💛💚💙💜"), "❤️🧡💛💚💙💜");
-    }
-
-    #[test]
-    fn unicode_e() {
-        assert_eq!(to_snake_case("Test 🗻∈🌏 Lots"), "test_🗻∈🌏_lots");
-    }
-
-    #[test]
-    fn unicode_f() {
-        assert_eq!(to_snake_case("Test🗻∈🌏Lots"), "test🗻∈🌏lots");
-    }
-
-    // TODO: expected behavior?
-    // #[test]
-    // fn unicode_g() {
-    //     assert_eq!(to_snake_case("y̆ummy̆Yummy̆"), "y̆ummy̆_yummy̆");
-    // }
-
+    test!(identity: EXPECTED => EXPECTED);
+    test!(single_lowercase_word: "test" => "test");
+    test!(two_lowercase_words: "test lots" => EXPECTED);
+    test!(two_uppercase_words: "TEST LOTS" => EXPECTED);
+    test!(mixed_case_words_a: "testLOTS" => EXPECTED);
+    test!(mixed_case_words_b: "TESTLots" => EXPECTED);
+    test!(screaming_snake_case: "TEST_LOTS" => EXPECTED);
+    test!(camel_case: "testLots" => EXPECTED);
+    test!(title_case: "Test Lots" => EXPECTED);
+    test!(pascal_case: "TestLots" => EXPECTED);
+    test!(sentence_case: "Test lots" => EXPECTED);
+    test!(kebab_case: "test-lots" => EXPECTED);
     // upper ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ
     // lower àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþ
-    #[test]
-    fn latin_test_a() {
-        assert_eq!(to_snake_case("ÀêÙý ÇË téõÑæã"), "àê_ùý_çë_téõ_ñæã");
-    }
+    test!(latin_test_a: "ÀêÙý ÇË téõÑæã" => "àê_ùý_çë_téõ_ñæã");
+    test!(unicode_a: "Per Martin-Löf" => "per_martin_löf");
+    test!(unicode_b: "Löwe 老虎 Léopard" => "löwe_老虎_léopard");
+    test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
+    test!(unicode_e: "Test 🗻∈🌏 Lots" => "test_🗻∈🌏_lots");
+    test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
+    // TODO: expected behavior? {
+    // test!(unicode_c: "Löwe老虎Léopard" => "löwe老虎_léopard");
+    // TODO: expected behavior? {
+    // test!(unicode_g: "y̆ummy̆Yummy̆" => "y̆ummy̆_yummy̆");
 
     // TODO: specs for
     // assert!(!'a'.is_uppercase());
