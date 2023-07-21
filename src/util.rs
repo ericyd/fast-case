@@ -46,6 +46,12 @@ pub fn convert_case(
     result.iter().collect::<String>()
 }
 
+#[inline]
 pub fn to_lowercase(c: char) -> char {
     c.to_lowercase().next().unwrap()
+}
+
+#[inline]
+pub fn to_uppercase(c: char) -> char {
+    c.to_uppercase().next().unwrap()
 }
