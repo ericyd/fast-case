@@ -44,10 +44,81 @@ Word boundaries are the crux of changing cases. This lib defines word boundaries
 
 ## JS Benchmarks
 
-JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/change-case) which seems to be one of the most popular libs on npm for changing string casing.
+JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/change-case) which seems to be one of the most popular libs on npm for changing string casing. Sadly, it is apparent that the overhead of copying the string to WASM is not worth the performance gains of the Rust algorithm, at least for relatively small strings. The performance ranges from about 7% worse to almost 25% worse in some cases.
+
+One thing to note is that this benchmark tests both a very short string and a moderately-long string. The performance is much more favorable for `fast-case` as the string increases in length, but for fairness and realistic benchmarking, I wanted to include both cases.
 
 ```shell
 npm run benchmark:js
+```
+
+```
+===================
+  Case change comparison
+===================
+
+Platform info:
+==============
+   Darwin 22.5.0 x64
+   Node.JS: 18.12.0
+   V8: 10.2.154.15-node.12
+   Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz × 12
+
+Suite: snake_case
+✔ fastCase             185,672 rps
+✔ changeCase           205,903 rps
+
+   fastCase          -9.83%         (185,672rps)   (avg: 5μs)
+   changeCase            0%         (205,903rps)   (avg: 4μs)
+------------------------------------------------------------------------
+
+Suite: camelCase
+✔ fastCase             152,319 rps
+✔ changeCase           188,161 rps
+
+   fastCase         -19.05%         (152,319rps)   (avg: 6μs)
+   changeCase            0%         (188,161rps)   (avg: 5μs)
+------------------------------------------------------------------------
+
+Suite: Sentence case
+✔ fastCase             174,196 rps
+✔ changeCase           231,857 rps
+
+   fastCase         -24.87%         (174,196rps)   (avg: 5μs)
+   changeCase            0%         (231,857rps)   (avg: 4μs)
+------------------------------------------------------------------------
+
+Suite: Title Case
+✔ fastCase             178,978 rps
+✔ changeCase           202,346 rps
+
+   fastCase         -11.55%         (178,978rps)   (avg: 5μs)
+   changeCase            0%         (202,346rps)   (avg: 4μs)
+------------------------------------------------------------------------
+
+Suite: PascalCase
+✔ fastCase             180,948 rps
+✔ changeCase           194,161 rps
+
+   fastCase           -6.8%         (180,948rps)   (avg: 5μs)
+   changeCase            0%         (194,161rps)   (avg: 5μs)
+------------------------------------------------------------------------
+
+Suite: kebab-case
+✔ fastCase             181,654 rps
+✔ changeCase           226,018 rps
+
+   fastCase         -19.63%         (181,654rps)   (avg: 5μs)
+   changeCase            0%         (226,018rps)   (avg: 4μs)
+------------------------------------------------------------------------
+
+Suite: SCREAMING_SNAKE_CASE
+✔ fastCase             187,429 rps
+✔ changeCase           218,731 rps
+
+   fastCase         -14.31%         (187,429rps)   (avg: 5μs)
+   changeCase            0%         (218,731rps)   (avg: 4μs)
+------------------------------------------------------------------------
 ```
 
 ## Rust Benchmarks

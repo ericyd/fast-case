@@ -8,18 +8,15 @@ const {
   toTitleCase,
   toPascalCase,
   toKebabCase,
+  toScreamingSnakeCase,
 } = require("../dist/index");
 
 const {
   camelCase,
   capitalCase,
   constantCase,
-  dotCase,
-  headerCase,
-  noCase,
   paramCase,
   pascalCase,
-  pathCase,
   sentenceCase,
   snakeCase,
 } = require("change-case");
@@ -29,7 +26,7 @@ const {
 // Short strings perform better with change-case because the algorithm can't make up the speed lost by copying the string
 const longString = "SomeWhat varied test-string WITH_MULTIPLE wordCasings";
 const shortString = "TestLots";
-const benchmark = new Benchmarkify("UUID Processing").printHeader();
+const benchmark = new Benchmarkify("Case change comparison").printHeader();
 const suiteOptions = { cycles: 100000 };
 
 const suites = [
@@ -62,6 +59,11 @@ const suites = [
     suite: benchmark.createSuite("kebab-case", suiteOptions),
     fastCase: toKebabCase,
     changeCase: paramCase,
+  },
+  {
+    suite: benchmark.createSuite("SCREAMING_SNAKE_CASE", suiteOptions),
+    fastCase: toScreamingSnakeCase,
+    changeCase: constantCase,
   },
 ];
 
