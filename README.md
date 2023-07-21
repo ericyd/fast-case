@@ -136,5 +136,4 @@ ESM modules cannot yet be used with WASM: [the proposal is in stage 2 at time of
 
 ## TODO
 
-- [ ] Add tests for non-ascii unicode handling (done in snake_case, need to carry through to others)
 - [ ] beat change-case in benchmark

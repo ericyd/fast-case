@@ -33,4 +33,12 @@ mod camel_case_tests {
     test!(pascal_case: "TestLots" => EXPECTED);
     test!(sentence_case: "Test lots" => EXPECTED);
     test!(kebab_case: "test-lots" => EXPECTED);
+    test!(latin_test_a: "ÀêÙý_ÇË_téõÑæã" => "àêÙýÇëTéõÑæã");
+    test!(unicode_a: "Per_Martin_Löf" => "perMartinLöf");
+    test!(unicode_b: "Löwe_老虎_Léopard" => "löwe老虎Léopard");
+    test!(unicode_c: "ΑΒ_ΓΔ_ΘΛ" => "αβΓδΘλ");
+    test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
+    test!(unicode_e: "Test 🗻∈🌏 Lots" => "test🗻∈🌏Lots");
+    // This one looks a bit strange, but because of the "uppercase-ness" of the middle unicode chars, it is just the way it works
+    test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
 }

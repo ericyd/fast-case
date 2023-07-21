@@ -33,4 +33,11 @@ mod sentence_case_tests {
     test!(pascal_case: "TestLots" => EXPECTED);
     test!(snake_case: "test_lots" => EXPECTED);
     test!(kebab_case: "test-lots" => EXPECTED);
+    test!(latin_test_a: "ÀêÙý_ÇË_téõÑæã" => "Àê ùý çë téõ ñæã");
+    test!(unicode_a: "Per_Martin_Löf" => "Per martin löf");
+    test!(unicode_b: "Löwe_老虎_Léopard" => "Löwe 老虎 léopard");
+    test!(unicode_c: "ΑΒ_ΓΔ_ΘΛ" => "Αβ γδ θλ");
+    test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
+    test!(unicode_e: "Test 🗻∈🌏 Lots" => "Test 🗻∈🌏 lots");
+    test!(unicode_f: "Test🗻∈🌏Lots" => "Test🗻∈🌏lots");
 }

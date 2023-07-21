@@ -38,17 +38,8 @@ mod snake_case_tests {
     test!(latin_test_a: "ÀêÙý ÇË téõÑæã" => "ÀÊ_ÙÝ_ÇË_TÉÕ_ÑÆÃ");
     test!(unicode_a: "Per Martin-Löf" => "PER_MARTIN_LÖF");
     test!(unicode_b: "Löwe 老虎 Léopard" => "LÖWE_老虎_LÉOPARD");
+    test!(unicode_c: "ΑΒ ΓΔ ΘΛ" => "ΑΒ_ΓΔ_ΘΛ");
     test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
     test!(unicode_e: "Test 🗻∈🌏 Lots" => "TEST_🗻∈🌏_LOTS");
     test!(unicode_f: "Test🗻∈🌏Lots" => "TEST🗻∈🌏LOTS");
-    // TODO: expected behavior?
-    // test!(unicode_c: "Löwe老虎Léopard" => "löwe老虎_léopard");
-    // TODO: expected behavior?
-    // test!(unicode_g: "y̆ummy̆Yummy̆" => "y̆ummy̆_yummy̆");
-
-    // TODO: specs for
-    // assert!(!'a'.is_uppercase());
-    // assert!(!'δ'.is_uppercase());
-    // assert!('A'.is_uppercase());
-    // assert!('Δ'.is_uppercase());
 }

@@ -33,4 +33,12 @@ mod title_case_tests {
     test!(sentence_case: "Test lots" => EXPECTED);
     test!(snake_case: "test_lots" => EXPECTED);
     test!(kebab_case: "test-lots" => EXPECTED);
+    test!(latin_test_a: "ÀêÙý_ÇË_téõÑæã" => "Àê Ùý Çë Téõ Ñæã");
+    test!(unicode_a: "Per_Martin_Löf" => "Per Martin Löf");
+    test!(unicode_b: "Löwe_老虎_Léopard" => "Löwe 老虎 Léopard");
+    test!(unicode_c: "ΑΒ_ΓΔ_ΘΛ" => "Αβ Γδ Θλ");
+    test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
+    test!(unicode_e: "Test 🗻∈🌏 Lots" => "Test 🗻∈🌏 Lots");
+    // This one looks a bit strange, but because of the "uppercase-ness" of the middle unicode chars, it is just the way it works
+    test!(unicode_f: "Test🗻∈🌏Lots" => "Test🗻∈🌏lots");
 }

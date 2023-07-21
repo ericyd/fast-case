@@ -33,4 +33,11 @@ mod kebab_case_tests {
     test!(sentence_case: "Test lots" => EXPECTED);
     test!(title_case: "Test Lots" => EXPECTED);
     test!(snake_case: "test_lots" => EXPECTED);
+    test!(latin_test_a: "ÀêÙý ÇË téõÑæã" => "àê-ùý-çë-téõ-ñæã");
+    test!(unicode_a: "Per Martin-Löf" => "per-martin-löf");
+    test!(unicode_b: "Löwe 老虎 Léopard" => "löwe-老虎-léopard");
+    test!(unicode_c: "ΑΒ ΓΔ ΘΛ" => "αβ-γδ-θλ");
+    test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
+    test!(unicode_e: "Test 🗻∈🌏 Lots" => "test-🗻∈🌏-lots");
+    test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
 }
