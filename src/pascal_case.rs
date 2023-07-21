@@ -6,14 +6,6 @@ pub fn to_pascal_case(s: &str) -> String {
     convert_case(s, None, to_lowercase, true, true)
 }
 
-// use super::util::to_capitalized_string_vec;
-// use wasm_bindgen::prelude::wasm_bindgen;
-
-// #[wasm_bindgen]
-// pub fn to_pascal_case(s: &str) -> String {
-//     to_capitalized_string_vec(s).join("")
-// }
-
 #[cfg(test)]
 mod pascal_case_tests {
     use super::to_pascal_case;

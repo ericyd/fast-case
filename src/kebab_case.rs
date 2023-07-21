@@ -1,11 +1,3 @@
-// use super::util::to_lowercase_string_vec;
-// use wasm_bindgen::prelude::wasm_bindgen;
-
-// #[wasm_bindgen]
-// pub fn to_kebab_case(s: &str) -> String {
-//     to_lowercase_string_vec(s).join("-")
-// }
-
 use super::util::{convert_case, to_lowercase};
 use wasm_bindgen::prelude::wasm_bindgen;
 

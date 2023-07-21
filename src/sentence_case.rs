@@ -1,12 +1,3 @@
-// use super::util::to_lowercase_string_vec;
-// use wasm_bindgen::prelude::wasm_bindgen;
-
-// #[wasm_bindgen]
-// pub fn to_sentence_case(s: &str) -> String {
-//     let result = to_lowercase_string_vec(s).join(" ");
-//     result[0..1].to_ascii_uppercase() + &result[1..]
-// }
-
 use super::util::{convert_case, to_lowercase};
 use wasm_bindgen::prelude::wasm_bindgen;
 

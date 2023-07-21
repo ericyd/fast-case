@@ -1,11 +1,3 @@
-// use super::util::to_capitalized_string_vec;
-// use wasm_bindgen::prelude::wasm_bindgen;
-
-// #[wasm_bindgen]
-// pub fn to_title_case(s: &str) -> String {
-//     to_capitalized_string_vec(s).join(" ")
-// }
-
 use super::util::{convert_case, to_lowercase};
 use wasm_bindgen::prelude::wasm_bindgen;
 
