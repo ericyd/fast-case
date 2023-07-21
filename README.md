@@ -33,7 +33,16 @@ cargo test
 node --test
 ```
 
-## Benchmark
+## Definition of word boundary
+
+Word boundaries are the crux of changing cases. This lib defines word boundaries as any of the following
+
+1. [Whitespace](https://doc.rust-lang.org/std/primitive.char.html#method.is_whitespace)
+2. Underscore `_` or hyphen `-`
+3. An [uppercase](https://doc.rust-lang.org/std/primitive.char.html#method.is_uppercase) letter preceded by a [lowercase](https://doc.rust-lang.org/std/primitive.char.html#method.is_lowercase) letter, e.g. the word boundary in `abcDef` is between `cD`
+4. An uppercase letter preceded by an uppercase letter and succeeded by a lowercase letter, e.g. the word boundary in `HTMLElement` is between `LE`
+
+## JS Benchmarks
 
 JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/change-case) which seems to be one of the most popular libs on npm for changing string casing.
 
@@ -41,7 +50,7 @@ JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/
 npm run benchmark:js
 ```
 
-Rust benchmarks do not compare to other implementations, but they can track changes over time to the core algorithm
+## Rust Benchmarks
 
 ```shell
 npm run benchmark:rs
