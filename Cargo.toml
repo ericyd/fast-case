@@ -21,7 +21,7 @@ change-case = "0.2.0"
 convert_case = "0.6.0"
 case-switcher = "1.0.2"
 recase = "0.3.0"
-heck = "0.4.1"
+heck = { version = "0.4.1", unicode = true }
 
 [[bench]]
 name = "main"
