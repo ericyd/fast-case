@@ -40,4 +40,7 @@ mod kebab_case_tests {
     test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
     test!(unicode_e: "Test 🗻∈🌏 Lots" => "test-🗻∈🌏-lots");
     test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
+    // from heck: https://github.com/withoutboats/heck/blob/76a8274f948fbe3551413dc09026b733aca71995/src/kebab.rs#L68-L69
+    test!(test9: "XΣXΣ baﬄe" => "xσxσ-baﬄe");
+    test!(test10: "XMLHttpRequest" => "xml-http-request");
 }

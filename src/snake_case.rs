@@ -42,4 +42,10 @@ mod snake_case_tests {
     test!(unicode_d: "❤️🧡💛💚💙💜" => "❤️🧡💛💚💙💜");
     test!(unicode_e: "Test 🗻∈🌏 Lots" => "test_🗻∈🌏_lots");
     test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
+    // from heck: https://github.com/withoutboats/heck/blob/76a8274f948fbe3551413dc09026b733aca71995/src/snake.rs#L81-L85
+    test!(test9: "XΣXΣ baﬄe" => "xσxσ_baﬄe");
+    test!(test10: "XMLHttpRequest" => "xml_http_request");
+    test!(test11: "FIELD_NAME11" => "field_name11");
+    test!(test12: "99BOTTLES" => "99bottles");
+    test!(test13: "FieldNamE11" => "field_nam_e11");
 }

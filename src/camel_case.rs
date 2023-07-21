@@ -41,4 +41,7 @@ mod camel_case_tests {
     test!(unicode_e: "Test 🗻∈🌏 Lots" => "test🗻∈🌏Lots");
     // This one looks a bit strange, but because of the "uppercase-ness" of the middle unicode chars, it is just the way it works
     test!(unicode_f: "Test🗻∈🌏Lots" => "test🗻∈🌏lots");
+    // from heck: https://github.com/withoutboats/heck/blob/76a8274f948fbe3551413dc09026b733aca71995/src/lower_camel.rs#L82-L83
+    test!(test9: "XΣXΣ baﬄe" => "xσxσBaﬄe");
+    test!(test10: "XMLHttpRequest" => "xmlHttpRequest");
 }

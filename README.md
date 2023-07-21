@@ -67,67 +67,81 @@ Darwin 22.5.0 x64
 Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz × 12
 ```
 
-snake_case
+`camelCase`
 
 ```
-heck           time:   [832.29 ns 837.56 ns 843.26 ns]
-fast_case      time:   [787.43 ns 840.54 ns 911.55 ns]
-recase         time:   [9.2141 µs 9.3199 µs 9.4381 µs]
-convert_case   time:   [39.593 µs 40.731 µs 42.002 µs]
-change_case    time:   [59.965 µs 62.111 µs 64.238 µs]
-case_switcher  time:   [868.08 µs 880.13 µs 893.50 µs]
+heck                    time:   [773.01 ns 781.47 ns 791.56 ns]
+fast_case               time:   [784.32 ns 823.50 ns 884.32 ns]
+recase                  time:   [12.056 µs 12.283 µs 12.519 µs]
+convert_case            time:   [47.795 µs 51.206 µs 54.798 µs]
+change_case             time:   [56.198 µs 56.602 µs 57.031 µs]
+case_switcher           time:   [902.02 µs 923.14 µs 946.39 µs]
 ```
 
-camelCase
+`kebab-case`
 
 ```
-heck           time:   [759.27 ns 775.13 ns 800.10 ns]
-fast_case      time:   [775.18 ns 787.95 ns 801.42 ns]
-recase         time:   [11.876 µs 11.979 µs 12.096 µs]
-convert_case   time:   [38.083 µs 38.641 µs 39.289 µs]
-change_case    time:   [55.058 µs 55.354 µs 55.718 µs]
-case_switcher  time:   [859.65 µs 877.71 µs 895.72 µs]
+fast_case               time:   [769.56 ns 787.96 ns 808.37 ns]
+heck                    time:   [878.14 ns 895.94 ns 914.69 ns]
+recase                  time:   [9.1931 µs 9.3237 µs 9.4633 µs]
+convert_case            time:   [36.573 µs 36.998 µs 37.589 µs]
+change_case             time:   [55.955 µs 56.418 µs 56.967 µs]
+case_switcher           time:   [846.57 µs 859.85 µs 876.16 µs]
 ```
 
-PascalCase
+`PascalCase`
 
 ```
-heck          time:   [756.82 ns 764.52 ns 774.15 ns]
-fast_case     time:   [788.86 ns 810.62 ns 835.11 ns]
-recase        time:   [12.278 µs 12.405 µs 12.545 µs]
-convert_case  time:   [36.931 µs 37.327 µs 37.795 µs]
-change_case   time:   [60.615 µs 63.079 µs 65.653 µs]
-case_switcher time:   [841.91 µs 854.95 µs 869.63 µs]
+fast_case               time:   [741.56 ns 753.87 ns 767.54 ns]
+heck                    time:   [755.94 ns 774.52 ns 794.09 ns]
+recase                  time:   [11.898 µs 11.918 µs 11.940 µs]
+convert_case            time:   [40.108 µs 41.093 µs 42.120 µs]
+change_case             time:   [57.911 µs 59.295 µs 60.913 µs]
+case_switcher           time:   [903.85 µs 923.28 µs 943.71 µs]
 ```
 
-Title Case
+`SCREAMING_SNAKE_CASE`
+
+_no equivalent function in case_switcher_
 
 ```
-heck           time:   [837.70 ns 842.13 ns 846.74 ns]
-fast_case      time:   [866.92 ns 891.07 ns 915.83 ns]
-change_case    time:   [10.809 µs 10.909 µs 11.019 µs]
-recase         time:   [12.342 µs 12.518 µs 12.718 µs]
-convert_case   time:   [38.815 µs 39.351 µs 39.935 µs]
-case_switcher  time:   [872.13 µs 893.60 µs 917.50 µs]
+fast_case               time:   [773.34 ns 788.22 ns 804.36 ns]
+heck                    time:   [823.64 ns 835.03 ns 848.53 ns]
+recase                  time:   [9.8614 µs 9.9668 µs 10.106 µs]
+convert_case            time:   [38.043 µs 38.899 µs 39.817 µs]
+change_case             time:   [60.540 µs 62.494 µs 64.515 µs]
 ```
 
-Sentence case
+`Sentence case`
+
+_no equivalent function in convert_case, case_switcher, or heck_
 
 ```
-fast_case   time:   [815.95 ns 824.93 ns 833.40 ns]
-recase      time:   [9.7883 µs 9.9663 µs 10.132 µs]
-change_case time:   [53.678 µs 53.958 µs 54.250 µs]
+fast_case               time:   [813.26 ns 830.14 ns 847.61 ns]
+recase                  time:   [10.508 µs 10.907 µs 11.402 µs]
+change_case             time:   [56.309 µs 57.212 µs 58.312 µs]
 ```
 
-kebab-case
+`snake_case`
 
 ```
-fast_case      time:   [811.80 ns 822.13 ns 831.34 ns]
-recase heck    time:   [828.29 ns 836.80 ns 846.28 ns]
-recase         time:   [9.3987 µs 9.5677 µs 9.7547 µs]
-convert_case   time:   [35.783 µs 36.059 µs 36.373 µs]
-change_case    time:   [54.596 µs 55.238 µs 55.938 µs]
-case_switcher  time:   [828.96 µs 842.41 µs 856.96 µs]
+fast_case               time:   [812.83 ns 828.26 ns 845.00 ns]
+heck                    time:   [837.82 ns 851.40 ns 867.38 ns]
+recase                  time:   [8.9598 µs 9.0850 µs 9.2377 µs]
+convert_case            time:   [38.483 µs 39.160 µs 39.819 µs]
+change_case             time:   [56.825 µs 57.843 µs 59.071 µs]
+case_switcher           time:   [859.34 µs 882.49 µs 906.87 µs]
+```
+
+`Title Case`
+
+```
+fast_case               time:   [774.48 ns 781.43 ns 789.39 ns]
+heck                    time:   [894.64 ns 910.24 ns 927.27 ns]
+change_case             time:   [11.228 µs 11.471 µs 11.734 µs]
+recase                  time:   [11.735 µs 11.812 µs 11.894 µs]
+convert_case            time:   [36.617 µs 36.804 µs 37.042 µs]
+case_switcher           time:   [911.66 µs 935.57 µs 961.28 µs]
 ```
 
 ## Why CommonJS?
