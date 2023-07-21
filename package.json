@@ -14,8 +14,8 @@
     "pkg/**/*.wasm.d.ts"
   ],
   "scripts": {
-    "test": "cargo test && node --test",
-    "benchmark:js": "node benches/index.js",
+    "test": "cargo test && npm run build && node --test",
+    "benchmark:js": "npm run build && node benches/index.js",
     "benchmark:rs": "cargo bench",
     "build:wasm-pack": "wasm-pack build --target nodejs --out-name index --out-dir ./pkg",
     "build:typescript": "tsc -b",

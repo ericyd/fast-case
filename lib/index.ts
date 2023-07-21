@@ -8,11 +8,10 @@ import {
   to_screaming_snake_case,
 } from "../pkg/index.js";
 
-export const toSnakeCase = (value: string) => to_snake_case(value);
-export const toCamelCase = (value: string) => to_camel_case(value);
-export const toKebabCase = (value: string) => to_kebab_case(value);
-export const toPascalCase = (value: string) => to_pascal_case(value);
-export const toSentenceCase = (value: string) => to_sentence_case(value);
-export const toTitleCase = (value: string) => to_title_case(value);
-export const toScreamingSnakeCase = (value: string) =>
-  to_screaming_snake_case(value);
+export const toSnakeCase = to_snake_case;
+export const toCamelCase = to_camel_case;
+export const toKebabCase = to_kebab_case;
+export const toPascalCase = to_pascal_case;
+export const toSentenceCase = to_sentence_case;
+export const toTitleCase = to_title_case;
+export const toScreamingSnakeCase = to_screaming_snake_case;
