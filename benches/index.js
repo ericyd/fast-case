@@ -26,56 +26,75 @@ const {
 // Short strings perform better with change-case because the algorithm can't make up the speed lost by copying the string
 const longString = "SomeWhat varied test-string WITH_MULTIPLE wordCasings";
 const shortString = "TestLots";
-const benchmark = new Benchmarkify("Case change comparison").printHeader();
+const longStringBenchmark = new Benchmarkify("Long string comparison");
+const shortStringBenchmark = new Benchmarkify("Short string comparison");
 const suiteOptions = { cycles: 100000 };
 
 const suites = [
   {
-    suite: benchmark.createSuite("snake_case", suiteOptions),
+    name: "snake_case",
     fastCase: toSnakeCase,
     changeCase: snakeCase,
   },
   {
-    suite: benchmark.createSuite("camelCase", suiteOptions),
+    name: "camelCase",
     fastCase: toCamelCase,
     changeCase: camelCase,
   },
   {
-    suite: benchmark.createSuite("Sentence case", suiteOptions),
+    name: "Sentence case",
     fastCase: toSentenceCase,
     changeCase: sentenceCase,
   },
   {
-    suite: benchmark.createSuite("Title Case", suiteOptions),
+    name: "Title Case",
     fastCase: toTitleCase,
     changeCase: capitalCase,
   },
   {
-    suite: benchmark.createSuite("PascalCase", suiteOptions),
+    name: "PascalCase",
     fastCase: toPascalCase,
     changeCase: pascalCase,
   },
   {
-    suite: benchmark.createSuite("kebab-case", suiteOptions),
+    name: "kebab-case",
     fastCase: toKebabCase,
     changeCase: paramCase,
   },
   {
-    suite: benchmark.createSuite("SCREAMING_SNAKE_CASE", suiteOptions),
+    name: "SCREAMING_SNAKE_CASE",
     fastCase: toScreamingSnakeCase,
     changeCase: constantCase,
   },
 ];
 
-suites.forEach(({ suite, fastCase, changeCase }) => {
+const longStringSuites = suites.map(({ name, fastCase, changeCase }) => {
+  const suite = longStringBenchmark.createSuite(name, suiteOptions);
   suite.add("fastCase", function () {
     fastCase(longString);
-    fastCase(shortString);
   });
   suite.add("changeCase", function () {
     changeCase(longString);
-    changeCase(shortString);
   });
+  return suite;
 });
 
-benchmark.run(suites.map(({ suite }) => suite));
+const shortStringSuites = suites.map(({ name, fastCase, changeCase }) => {
+  const suite = shortStringBenchmark.createSuite(name, suiteOptions);
+  suite.add("fastCase", function () {
+    fastCase(shortString);
+  });
+  suite.add("changeCase", function () {
+    changeCase(shortString);
+  });
+  return suite;
+});
+
+async function main() {
+  longStringBenchmark.printHeader();
+  await longStringBenchmark.run(longStringSuites);
+  shortStringBenchmark.printHeader();
+  await shortStringBenchmark.run(shortStringSuites);
+}
+
+main();

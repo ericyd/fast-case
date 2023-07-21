@@ -44,18 +44,16 @@ Word boundaries are the crux of changing cases. This lib defines word boundaries
 
 ## JS Benchmarks
 
-JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/change-case) which seems to be one of the most popular libs on npm for changing string casing. Sadly, it is apparent that the overhead of copying the string to WASM is not worth the performance gains of the Rust algorithm, at least for relatively small strings. The performance ranges from about 7% worse to almost 25% worse in some cases.
-
-One thing to note is that this benchmark tests both a very short string and a moderately-long string. The performance is much more favorable for `fast-case` as the string increases in length, but for fairness and realistic benchmarking, I wanted to include both cases.
+JS benchmarks compare this lib to [`change-case`](https://www.npmjs.com/package/change-case) which seems to be one of the most popular libs on npm for changing string casing. Sadly, it is apparent that the overhead of copying the string to WASM is not worth the performance gains of the Rust algorithm, at least for relatively small strings. Even for moderately long strings, the performance of `fast-case` is almost always worse than `change-case`. For short strings, the difference is even more substantial.
 
 ```shell
 npm run benchmark:js
 ```
 
 ```
-===================
-  Case change comparison
-===================
+==========================
+  Long string comparison
+==========================
 
 Platform info:
 ==============
@@ -65,59 +63,126 @@ Platform info:
    Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz × 12
 
 Suite: snake_case
-✔ fastCase             185,672 rps
-✔ changeCase           205,903 rps
+✔ fastCase             295,615 rps
+✔ changeCase           315,662 rps
 
-   fastCase          -9.83%         (185,672rps)   (avg: 5μs)
-   changeCase            0%         (205,903rps)   (avg: 4μs)
+   fastCase          -6.35%         (295,615rps)   (avg: 3μs)
+   changeCase            0%         (315,662rps)   (avg: 3μs)
 ------------------------------------------------------------------------
 
 Suite: camelCase
-✔ fastCase             152,319 rps
-✔ changeCase           188,161 rps
+✔ fastCase             306,827 rps
+✔ changeCase           315,142 rps
 
-   fastCase         -19.05%         (152,319rps)   (avg: 6μs)
-   changeCase            0%         (188,161rps)   (avg: 5μs)
+   fastCase          -2.64%         (306,827rps)   (avg: 3μs)
+   changeCase            0%         (315,142rps)   (avg: 3μs)
 ------------------------------------------------------------------------
 
 Suite: Sentence case
-✔ fastCase             174,196 rps
-✔ changeCase           231,857 rps
+✔ fastCase             310,235 rps
+✔ changeCase           373,011 rps
 
-   fastCase         -24.87%         (174,196rps)   (avg: 5μs)
-   changeCase            0%         (231,857rps)   (avg: 4μs)
+   fastCase         -16.83%         (310,235rps)   (avg: 3μs)
+   changeCase            0%         (373,011rps)   (avg: 2μs)
 ------------------------------------------------------------------------
 
 Suite: Title Case
-✔ fastCase             178,978 rps
-✔ changeCase           202,346 rps
+✔ fastCase             308,133 rps
+✔ changeCase           254,785 rps
 
-   fastCase         -11.55%         (178,978rps)   (avg: 5μs)
-   changeCase            0%         (202,346rps)   (avg: 4μs)
+   fastCase              0%         (308,133rps)   (avg: 3μs)
+   changeCase       -17.31%         (254,785rps)   (avg: 3μs)
 ------------------------------------------------------------------------
 
 Suite: PascalCase
-✔ fastCase             180,948 rps
-✔ changeCase           194,161 rps
+✔ fastCase             310,261 rps
+✔ changeCase           319,515 rps
 
-   fastCase           -6.8%         (180,948rps)   (avg: 5μs)
-   changeCase            0%         (194,161rps)   (avg: 5μs)
+   fastCase           -2.9%         (310,261rps)   (avg: 3μs)
+   changeCase            0%         (319,515rps)   (avg: 3μs)
 ------------------------------------------------------------------------
 
 Suite: kebab-case
-✔ fastCase             181,654 rps
-✔ changeCase           226,018 rps
+✔ fastCase             313,911 rps
+✔ changeCase           388,195 rps
 
-   fastCase         -19.63%         (181,654rps)   (avg: 5μs)
-   changeCase            0%         (226,018rps)   (avg: 4μs)
+   fastCase         -19.14%         (313,911rps)   (avg: 3μs)
+   changeCase            0%         (388,195rps)   (avg: 2μs)
 ------------------------------------------------------------------------
 
 Suite: SCREAMING_SNAKE_CASE
-✔ fastCase             187,429 rps
-✔ changeCase           218,731 rps
+✔ fastCase             316,369 rps
+✔ changeCase           359,744 rps
 
-   fastCase         -14.31%         (187,429rps)   (avg: 5μs)
-   changeCase            0%         (218,731rps)   (avg: 4μs)
+   fastCase         -12.06%         (316,369rps)   (avg: 3μs)
+   changeCase            0%         (359,744rps)   (avg: 2μs)
+------------------------------------------------------------------------
+
+===========================
+  Short string comparison
+===========================
+
+Platform info:
+==============
+   Darwin 22.5.0 x64
+   Node.JS: 18.12.0
+   V8: 10.2.154.15-node.12
+   Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz × 12
+
+Suite: snake_case
+✔ fastCase             442,144 rps
+✔ changeCase           652,746 rps
+
+   fastCase         -32.26%         (442,144rps)   (avg: 2μs)
+   changeCase            0%         (652,746rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: camelCase
+✔ fastCase             476,177 rps
+✔ changeCase           740,295 rps
+
+   fastCase         -35.68%         (476,177rps)   (avg: 2μs)
+   changeCase            0%         (740,295rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: Sentence case
+✔ fastCase             457,466 rps
+✔ changeCase           658,887 rps
+
+   fastCase         -30.57%         (457,466rps)   (avg: 2μs)
+   changeCase            0%         (658,887rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: Title Case
+✔ fastCase             445,018 rps
+✔ changeCase           621,155 rps
+
+   fastCase         -28.36%         (445,018rps)   (avg: 2μs)
+   changeCase            0%         (621,155rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: PascalCase
+✔ fastCase             439,313 rps
+✔ changeCase           588,201 rps
+
+   fastCase         -25.31%         (439,313rps)   (avg: 2μs)
+   changeCase            0%         (588,201rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: kebab-case
+✔ fastCase             458,029 rps
+✔ changeCase           779,859 rps
+
+   fastCase         -41.27%         (458,029rps)   (avg: 2μs)
+   changeCase            0%         (779,859rps)   (avg: 1μs)
+------------------------------------------------------------------------
+
+Suite: SCREAMING_SNAKE_CASE
+✔ fastCase             472,326 rps
+✔ changeCase           783,018 rps
+
+   fastCase         -39.68%         (472,326rps)   (avg: 2μs)
+   changeCase            0%         (783,018rps)   (avg: 1μs)
 ------------------------------------------------------------------------
 ```
 
